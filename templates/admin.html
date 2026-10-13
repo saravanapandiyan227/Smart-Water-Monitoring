@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard — AquaWatch{% endblock %}
+
+{% block content %}
+
+<!-- ─── Admin Header ───────────────────────────────────────────────────── -->
+<section class="admin-header">
+    <div class="admin-header-content">
+        <div>
+            <h1>🛡️ Admin Dashboard</h1>
+            <p>Welcome, <strong>{{ session.admin_username }}</strong> — Manage water complaints and monitor system status</p>
+        </div>
+        <a href="{{ url_for('admin_logout') }}" class="btn btn-outline-white">Logout</a>
+    </div>
+</section>
+
+<!-- ─── Stats Cards ───────────────────────────────────────────────────── -->
+<section class="section">
+    <div class="admin-stats-grid">
+        <div class="admin-stat-card card-blue">
+            <div class="admin-stat-icon">📋</div>
+            <div class="admin-stat-number">{{ stats.total }}</div>
+            <div class="admin-stat-label">Total Complaints</div>
+        </div>
+        <div class="admin-stat-card card-orange">
+            <div class="admin-stat-icon">⏳</div>
+            <div class="admin-stat-number">{{ stats.pending }}</div>
+            <div class="admin-stat-label">Pending</div>
+        </div>
+        <div class="admin-stat-card card-yellow">
+            <div class="admin-stat-icon">🔧</div>
+            <div class="admin-stat-number">{{ stats.in_progress }}</div>
+            <div class="admin-stat-label">In Progress</div>
+        </div>
+        <div class="admin-stat-card card-teal">
+            <div class="admin-stat-icon">📌</div>
+            <div class="admin-stat-number">{{ stats.assigned }}</div>
+            <div class="admin-stat-label">Assigned</div>
+        </div>
+        <div class="admin-stat-card card-green">
+            <div class="admin-stat-icon">✅</div>
+            <div class="admin-stat-number">{{ stats.resolved }}</div>
+            <div class="admin-stat-label">Resolved</div>
+        </div>
+        <div class="admin-stat-card card-gray">
+            <div class="admin-stat-icon">🔒</div>
+            <div class="admin-stat-number">{{ stats.closed }}</div>
+            <div class="admin-stat-label">Closed</div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── Water Monitoring Summary ─────────────────────────────────────── -->
+{% if latest_reading %}
+<section class="section section-alt">
+    <div class="section-header">
+        <h2>💧 Latest Water Readings</h2>
+        <p>⚠️ Simulated data — recorded at {{ latest_reading['recorded_at'] }}</p>
+    </div>
+    <div class="admin-readings-grid">
+        <div class="admin-reading-card">
+            <div class="ard-label">Water Level</div>
+            <div class="ard-value {% if latest_reading['water_level']|float < 40 %}value-warning{% endif %}">{{ latest_reading['water_level'] }}%</div>
+        </div>
+        <div class="admin-reading-card">
+            <div class="ard-label">pH Level</div>
+            <div class="ard-value {% if latest_reading['ph_level']|float < 6.5 or latest_reading['ph_level']|float > 8.5 %}value-warning{% endif %}">{{ latest_reading['ph_level'] }}</div>
+        </div>
+        <div class="admin-reading-card">
+            <div class="ard-label">Turbidity</div>
+            <div class="ard-value {% if latest_reading['turbidity']|float >= 4 %}value-warning{% endif %}">{{ latest_reading['turbidity'] }} NTU</div>
+        </div>
+        <div class="admin-reading-card">
+            <div class="ard-label">Temperature</div>
+            <div class="ard-value {% if latest_reading['temperature']|float >= 30 %}value-warning{% endif %}">{{ latest_reading['temperature'] }}°C</div>
+        </div>
+        <div class="admin-reading-card admin-reading-status">
+            <div class="ard-label">Overall Status</div>
+            <div class="ard-value">
+                <span class="status-badge status-{{ latest_reading['water_status']|lower }}">{{ latest_reading['water_status'] }}</span>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ─── Complaints Table ───────────────────────────────────────────────── -->
+<section class="section">
+    <div class="section-header">
+        <h2>📋 All Water Complaints</h2>
+        <p>{{ complaints|length }} complaint(s) in the system — sorted by most recent</p>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs" id="filterTabs">
+        <button class="filter-tab active" data-filter="all">All ({{ stats.total }})</button>
+        <button class="filter-tab" data-filter="pending">Pending ({{ stats.pending }})</button>
+        <button class="filter-tab" data-filter="assigned">Assigned ({{ stats.assigned }})</button>
+        <button class="filter-tab" data-filter="in-progress">In Progress ({{ stats.in_progress }})</button>
+        <button class="filter-tab" data-filter="resolved">Resolved ({{ stats.resolved }})</button>
+        <button class="filter-tab" data-filter="closed">Closed ({{ stats.closed }})</button>
+    </div>
+
+    {% if complaints %}
+    <div class="table-wrap" id="complaintTableWrap">
+        <table class="data-table" id="complaintTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Category</th>
+                    <th>Location</th>
+                    <th>Description</th>
+                    <th>Priority</th>
+                    <th>Submitted At</th>
+                    <th>Status</th>
+                    <th>Update Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in complaints %}
+                <tr class="complaint-row" data-status="{{ c['status']|lower|replace(' ', '-') }}">
+                    <td><strong>WC-{{ "%05d"|format(c['id']) }}</strong></td>
+                    <td>{{ c['complaint_type'] }}</td>
+                    <td>{{ c['location'] }}</td>
+                    <td class="desc-cell" title="{{ c['description'] }}">
+                        {{ c['description'][:80] }}{% if c['description']|length > 80 %}…{% endif %}
+                    </td>
+                    <td>
+                        <span class="priority-badge priority-{{ c['priority']|lower }}">
+                            {% if c['priority'] == 'Low' %}🟢
+                            {% elif c['priority'] == 'Medium' %}🟡
+                            {% elif c['priority'] == 'High' %}🟠
+                            {% else %}🔴{% endif %}
+                            {{ c['priority'] }}
+                        </span>
+                    </td>
+                    <td>{{ c['created_at'] }}</td>
+                    <td>
+                        <span class="status-badge status-{{ c['status']|lower|replace(' ', '-') }}">
+                            {{ c['status'] }}
+                        </span>
+                    </td>
+                    <td>
+                        <form method="POST" action="{{ url_for('update_status') }}" class="status-update-form">
+                            <input type="hidden" name="complaint_id" value="{{ c['id'] }}">
+                            <div class="update-group">
+                                <select name="new_status" class="status-select">
+                                    {% for s in statuses %}
+                                    <option value="{{ s }}" {% if s == c['status'] %}selected{% endif %}>{{ s }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <div class="empty-icon">📭</div>
+        <h3>No Complaints Yet</h3>
+        <p>No water complaints have been submitted yet.</p>
+    </div>
+    {% endif %}
+</section>
+
+{% endblock %}

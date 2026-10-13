@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% block title %}Home — Smart Water Monitoring System{% endblock %}
+
+{% block content %}
+
+<!-- ─── Hero ─────────────────────────────────────────────────────────── -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">Smart City Infrastructure</div>
+        <h1>Smart Water Monitoring<br>&amp; Complaint Management</h1>
+        <p class="hero-sub">
+            Real-time water quality tracking, instant complaint reporting, and transparent status updates — 
+            keeping your community's water supply safe and reliable.
+        </p>
+        <div class="hero-actions">
+            <a href="{{ url_for('report') }}" class="btn btn-primary btn-lg">Report an Issue</a>
+            <a href="{{ url_for('monitoring') }}" class="btn btn-outline btn-lg">View Monitoring</a>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <div class="water-globe">
+            <div class="globe-wave"></div>
+            <div class="globe-center">💧</div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── Water Status Banner ───────────────────────────────────────────── -->
+{% if reading %}
+<section class="status-banner status-{{ reading['water_status']|lower }}">
+    <div class="status-banner-content">
+        <span class="status-icon">
+            {% if reading['water_status'] == 'Normal' %}✅
+            {% elif reading['water_status'] == 'Warning' %}⚠️
+            {% else %}🚨{% endif %}
+        </span>
+        <div>
+            <strong>Current Water Status: {{ reading['water_status'] }}</strong>
+            <span class="status-detail">Last updated: {{ reading['recorded_at'] }} · pH {{ reading['ph_level'] }} · Turbidity {{ reading['turbidity'] }} NTU</span>
+        </div>
+        <a href="{{ url_for('monitoring') }}" class="btn btn-sm btn-white">Full Report →</a>
+    </div>
+</section>
+{% endif %}
+
+<!-- ─── Quick Stats ───────────────────────────────────────────────────── -->
+<section class="section">
+    <div class="section-header">
+        <h2>System Overview</h2>
+        <p>Current service status and complaint statistics</p>
+    </div>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon stat-blue">📋</div>
+            <div class="stat-number">{{ stats.total }}</div>
+            <div class="stat-label">Total Complaints</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon stat-orange">⏳</div>
+            <div class="stat-number">{{ stats.pending }}</div>
+            <div class="stat-label">Pending</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon stat-yellow">🔧</div>
+            <div class="stat-number">{{ stats.in_progress }}</div>
+            <div class="stat-label">In Progress</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon stat-green">✅</div>
+            <div class="stat-number">{{ stats.resolved }}</div>
+            <div class="stat-label">Resolved</div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── Live Readings ─────────────────────────────────────────────────── -->
+{% if reading %}
+<section class="section section-alt">
+    <div class="section-header">
+        <h2>Latest Water Readings</h2>
+        <p>⚠️ Simulated sensor data — for demonstration purposes only</p>
+    </div>
+    <div class="readings-grid">
+        <div class="reading-card">
+            <div class="reading-icon">🌊</div>
+            <div class="reading-label">Water Level</div>
+            <div class="reading-value">{{ reading['water_level'] }}%</div>
+            <div class="reading-bar">
+                <div class="reading-fill {% if reading['water_level']|float < 40 %}fill-warning{% elif reading['water_level']|float < 20 %}fill-critical{% else %}fill-normal{% endif %}"
+                     style="width: {{ reading['water_level'] }}%"></div>
+            </div>
+        </div>
+        <div class="reading-card">
+            <div class="reading-icon">🧪</div>
+            <div class="reading-label">pH Level</div>
+            <div class="reading-value">{{ reading['ph_level'] }}</div>
+            <div class="reading-sub">Ideal: 6.5 – 8.5</div>
+        </div>
+        <div class="reading-card">
+            <div class="reading-icon">🌫️</div>
+            <div class="reading-label">Turbidity</div>
+            <div class="reading-value">{{ reading['turbidity'] }} NTU</div>
+            <div class="reading-sub">Warning above 4.0 NTU</div>
+        </div>
+        <div class="reading-card">
+            <div class="reading-icon">🌡️</div>
+            <div class="reading-label">Temperature</div>
+            <div class="reading-value">{{ reading['temperature'] }}°C</div>
+            <div class="reading-sub">Warning above 30°C</div>
+        </div>
+    </div>
+    <div class="text-center mt-2">
+        <a href="{{ url_for('monitoring') }}" class="btn btn-primary">View Full Monitoring Dashboard →</a>
+    </div>
+</section>
+{% endif %}
+
+<!-- ─── How It Works ──────────────────────────────────────────────────── -->
+<section class="section">
+    <div class="section-header">
+        <h2>How It Works</h2>
+        <p>Simple steps to report and track water issues</p>
+    </div>
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-number">01</div>
+            <div class="step-icon">📝</div>
+            <h3>Report Issue</h3>
+            <p>Select the complaint category, enter your location, describe the problem, and choose the priority level.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">02</div>
+            <div class="step-icon">🎫</div>
+            <h3>Get Complaint ID</h3>
+            <p>Receive a unique Complaint ID (e.g., WC-00001) immediately after successful submission.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">03</div>
+            <div class="step-icon">🔍</div>
+            <h3>Track Status</h3>
+            <p>Use your Complaint ID to track the current status — from Pending through Resolved.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">04</div>
+            <div class="step-icon">✅</div>
+            <h3>Issue Resolved</h3>
+            <p>The admin team updates the complaint status as work progresses until resolution.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ─── CTA ───────────────────────────────────────────────────────────── -->
+<section class="cta-section">
+    <div class="cta-content">
+        <h2>Experiencing a Water Problem?</h2>
+        <p>Report it now and our team will respond as quickly as possible.</p>
+        <div class="cta-buttons">
+            <a href="{{ url_for('report') }}" class="btn btn-white btn-lg">Report an Issue</a>
+            <a href="{{ url_for('track') }}" class="btn btn-outline-white btn-lg">Track My Complaint</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

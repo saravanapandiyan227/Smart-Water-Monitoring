@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}Report Water Issue — AquaWatch{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+    <div class="page-header-content">
+        <h1>📝 Report a Water Issue</h1>
+        <p>Fill in the details below to submit a water complaint. You will receive a unique Complaint ID after submission.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="form-container">
+
+        <!-- ─── Validation Errors ──────────────────────────────────── -->
+        {% if errors %}
+        <div class="error-box">
+            <strong>⚠️ Please fix the following errors:</strong>
+            <ul>
+                {% for error in errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <form id="complaintForm" method="POST" action="{{ url_for('submit_complaint') }}" novalidate>
+
+            <!-- Complaint Category -->
+            <div class="form-group">
+                <label for="complaint_type" class="form-label">
+                    Complaint Category <span class="required">*</span>
+                </label>
+                <select id="complaint_type" name="complaint_type" class="form-control" required>
+                    <option value="">— Select a category —</option>
+                    {% for cat in categories %}
+                    <option value="{{ cat }}"
+                        {% if form_data and form_data.get('complaint_type') == cat %}selected{% endif %}>
+                        {{ cat }}
+                    </option>
+                    {% endfor %}
+                </select>
+                <div class="field-hint">Choose the category that best describes the water issue.</div>
+            </div>
+
+            <!-- Location -->
+            <div class="form-group">
+                <label for="location" class="form-label">
+                    Location / Address <span class="required">*</span>
+                </label>
+                <input type="text" id="location" name="location" class="form-control"
+                    placeholder="e.g., Block A, Flat 302, Main Street"
+                    value="{{ form_data.get('location', '') if form_data else '' }}"
+                    minlength="5" maxlength="200" required>
+                <div class="field-hint">Enter your building name, block, street, or landmark (min. 5 characters).</div>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+                <label for="description" class="form-label">
+                    Problem Description <span class="required">*</span>
+                </label>
+                <textarea id="description" name="description" class="form-control" rows="5"
+                    placeholder="Describe the water issue in detail — what you observed, when it started, how severe it is, etc."
+                    minlength="10" maxlength="1000" required>{{ form_data.get('description', '') if form_data else '' }}</textarea>
+                <div class="field-hint char-counter">
+                    <span id="charCount">0</span>/1000 characters (min. 10)
+                </div>
+            </div>
+
+            <!-- Priority -->
+            <div class="form-group">
+                <label class="form-label">
+                    Priority Level <span class="required">*</span>
+                </label>
+                <div class="priority-options">
+                    {% for p in priorities %}
+                    <label class="priority-option priority-{{ p|lower }}">
+                        <input type="radio" name="priority" value="{{ p }}"
+                            {% if form_data and form_data.get('priority') == p %}checked{% endif %}
+                            required>
+                        <div class="priority-card">
+                            <div class="priority-icon">
+                                {% if p == 'Low' %}🟢
+                                {% elif p == 'Medium' %}🟡
+                                {% elif p == 'High' %}🟠
+                                {% else %}🔴{% endif %}
+                            </div>
+                            <div class="priority-name">{{ p }}</div>
+                            <div class="priority-desc">
+                                {% if p == 'Low' %}Minor inconvenience
+                                {% elif p == 'Medium' %}Moderate impact
+                                {% elif p == 'High' %}Significant issue
+                                {% else %}Emergency / Health risk{% endif %}
+                            </div>
+                        </div>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                    📤 Submit Complaint
+                </button>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary btn-lg">Cancel</a>
+            </div>
+        </form>
+
+        <!-- ─── Info Box ──────────────────────────────────────────── -->
+        <div class="info-box mt-2">
+            <h4>📌 After Submission</h4>
+            <ul>
+                <li>You will receive a unique <strong>Complaint ID</strong> (e.g., WC-00001).</li>
+                <li>Use this ID to track your complaint status at any time.</li>
+                <li>The admin team will review and update the status as work progresses.</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

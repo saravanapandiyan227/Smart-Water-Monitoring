@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}Track Complaint — AquaWatch{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+    <div class="page-header-content">
+        <h1>🔍 Track Your Complaint</h1>
+        <p>Enter your Complaint ID to view the current status and details.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="form-container">
+
+        <!-- ─── Search Form ─────────────────────────────────────── -->
+        <div class="track-search-box">
+            <h2>Enter Complaint ID</h2>
+            <form method="POST" action="{{ url_for('track') }}" id="trackForm">
+                <div class="track-input-group">
+                    <input type="text" name="complaint_id" class="form-control track-input"
+                        placeholder="e.g., WC-00001 or 1"
+                        value="{{ prefill_id or searched_id or '' }}"
+                        required autofocus>
+                    <button type="submit" class="btn btn-primary">🔍 Track</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- ─── Error ──────────────────────────────────────────── -->
+        {% if error %}
+        <div class="error-box mt-2">
+            <strong>❌ {{ error }}</strong>
+        </div>
+        {% endif %}
+
+        <!-- ─── Complaint Result ────────────────────────────────── -->
+        {% if complaint %}
+        <div class="complaint-result mt-2">
+            <div class="complaint-result-header">
+                <div>
+                    <h2>Complaint Details</h2>
+                    <div class="complaint-id-display">WC-{{ "%05d"|format(complaint['id']) }}</div>
+                </div>
+                <div>
+                    <span class="status-badge status-{{ complaint['status']|lower|replace(' ', '-') }}">
+                        {{ complaint['status'] }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="complaint-detail-grid">
+                <div class="detail-item">
+                    <div class="detail-label">Category</div>
+                    <div class="detail-value">{{ complaint['complaint_type'] }}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Priority</div>
+                    <div class="detail-value">
+                        <span class="priority-badge priority-{{ complaint['priority']|lower }}">
+                            {% if complaint['priority'] == 'Low' %}🟢
+                            {% elif complaint['priority'] == 'Medium' %}🟡
+                            {% elif complaint['priority'] == 'High' %}🟠
+                            {% else %}🔴{% endif %}
+                            {{ complaint['priority'] }}
+                        </span>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Location</div>
+                    <div class="detail-value">{{ complaint['location'] }}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Submitted On</div>
+                    <div class="detail-value">{{ complaint['created_at'] }}</div>
+                </div>
+                <div class="detail-item detail-full">
+                    <div class="detail-label">Description</div>
+                    <div class="detail-value">{{ complaint['description'] }}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Last Updated</div>
+                    <div class="detail-value">{{ complaint['updated_at'] }}</div>
+                </div>
+            </div>
+
+            <!-- ─── Status Timeline ─────────────────────────────── -->
+            <div class="status-timeline">
+                <h3>Status Progress</h3>
+                <div class="timeline">
+                    {% set statuses = ['Pending', 'Assigned', 'In Progress', 'Resolved', 'Closed'] %}
+                    {% set current_idx = statuses.index(complaint['status']) if complaint['status'] in statuses else 0 %}
+                    {% for s in statuses %}
+                    <div class="timeline-step {% if loop.index0 <= current_idx %}step-done{% endif %} {% if loop.index0 == current_idx %}step-current{% endif %}">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-label">{{ s }}</div>
+                    </div>
+                    {% if not loop.last %}
+                    <div class="timeline-line {% if loop.index0 < current_idx %}line-done{% endif %}"></div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- ─── Tips ───────────────────────────────────────────── -->
+        <div class="info-box mt-2">
+            <h4>💡 Tips</h4>
+            <ul>
+                <li>Your Complaint ID was shown after submission (e.g., <strong>WC-00001</strong>).</li>
+                <li>You can enter just the number (e.g., <strong>1</strong>) or the full ID.</li>
+                <li>Status updates are made by the admin team — check back for progress.</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+---
+# ============================================================
+# Ansible Deployment Playbook
+# Smart Water Monitoring and Complaint Management System
+# ============================================================
+# Prerequisite: Install the community.docker collection
+#   ansible-galaxy collection install community.docker
+#
+# Run manually:
+#   docker exec ansible-docker-lab ansible-playbook -i /inventory.ini /water-deploy.yml
+#
+# After deployment, app is accessible at: http://localhost:5002
+# ============================================================
+
+- name: Deploy Smart Water Monitoring System
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    image_name: "water-monitoring-ci"
+    container_name: "water-monitoring-ansible"
+    host_port: 5002
+    container_port: 5000
+    volume_name: "water_monitoring_data"
+    volume_mount: "/app/data"
+    restart_policy: "unless-stopped"
+
+  tasks:
+
+    - name: Ensure Docker volume exists for persistent database storage
+      community.docker.docker_volume:
+        name: "{{ volume_name }}"
+        state: present
+
+    - name: Deploy (or recreate) the Water Monitoring application container
+      community.docker.docker_container:
+        name: "{{ container_name }}"
+        image: "{{ image_name }}"
+        state: "{{ container_state | default('started') }}"
+        restart_policy: "{{ restart_policy }}"
+        ports:
+          - "{{ host_port }}:{{ container_port }}"
+        volumes:
+          - "{{ volume_name }}:{{ volume_mount }}"
+        env:
+          DATABASE_PATH: "/app/data/water_monitoring.db"
+          FLASK_DEBUG: "false"
+          # Supply ADMIN_PASSWORD and FLASK_SECRET_KEY via environment or vault in production
+          ADMIN_USERNAME: "admin"
+          ADMIN_PASSWORD: "admin123"
+          FLASK_SECRET_KEY: "change-this-in-production"
+
+    - name: Verify the container is running
+      community.docker.docker_container_info:
+        name: "{{ container_name }}"
+      register: container_info
+
+    - name: Print deployment result
+      debug:
+        msg: >
+          Container '{{ container_name }}' is {{ container_info.container.State.Status }}.
+          Application available at http://localhost:{{ host_port }}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Smart Water Monitoring System{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ─── Navigation ─────────────────────────────────────────────────────── -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a class="nav-brand" href="{{ url_for('index') }}">
+            <span class="nav-icon">💧</span>
+            <span>AquaWatch</span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="{{ url_for('index') }}" {% if request.endpoint == 'index' %}class="active"{% endif %}>Home</a></li>
+            <li><a href="{{ url_for('monitoring') }}" {% if request.endpoint == 'monitoring' %}class="active"{% endif %}>Monitoring</a></li>
+            <li><a href="{{ url_for('report') }}" {% if request.endpoint in ['report','submit_complaint'] %}class="active"{% endif %}>Report Issue</a></li>
+            <li><a href="{{ url_for('track') }}" {% if request.endpoint == 'track' %}class="active"{% endif %}>Track Complaint</a></li>
+            {% if session.get('admin_logged_in') %}
+            <li><a href="{{ url_for('admin_dashboard') }}" {% if request.endpoint == 'admin_dashboard' %}class="active"{% endif %}>Admin</a></li>
+            <li><a href="{{ url_for('admin_logout') }}">Logout</a></li>
+            {% else %}
+            <li><a href="{{ url_for('admin_login') }}" {% if request.endpoint == 'admin_login' %}class="active"{% endif %}>Admin Login</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<!-- ─── Flash Messages ─────────────────────────────────────────────────── -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-container">
+      {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">
+            <span>{{ message }}</span>
+            <button class="flash-close" onclick="this.parentElement.remove()">✕</button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<!-- ─── Page Content ───────────────────────────────────────────────────── -->
+<main class="main-content">
+    {% block content %}{% endblock %}
+</main>
+
+<!-- ─── Footer ─────────────────────────────────────────────────────────── -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <h3>💧 AquaWatch</h3>
+            <p>Smart Water Monitoring &amp; Complaint Management System — A college DevOps demonstration project.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('monitoring') }}">Water Monitoring</a></li>
+                <li><a href="{{ url_for('report') }}">Report Issue</a></li>
+                <li><a href="{{ url_for('track') }}">Track Complaint</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>DevOps Stack</h4>
+            <ul>
+                <li>Flask · SQLite · Docker</li>
+                <li>Jenkins · Ansible · Pytest</li>
+                <li>Git · GitHub</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>⚠️ Water readings shown are <strong>simulated sensor data</strong> for demonstration purposes only.</p>
+        <p>&copy; 2026 AquaWatch — Smart Water Monitoring System</p>
+    </div>
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

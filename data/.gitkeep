@@ -1,0 +1,2 @@
+# data directory — keep this folder in Git, but not the SQLite database
+# The application creates water_monitoring.db here at runtime.
