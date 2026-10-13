@@ -1,0 +1,18 @@
+FROM python:3.11-slim
+
+# Install system tools
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Ansible and Python Docker SDK
+RUN pip install --no-cache-dir ansible-core docker requests
+
+# Install required Ansible Docker collection
+RUN ansible-galaxy collection install community.docker
+
+# Setup inventory
+RUN printf "[localhost]\nlocalhost ansible_connection=local\n" > /inventory.ini
+
+WORKDIR /
+CMD ["tail", "-f", "/dev/null"]
