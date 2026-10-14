@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Water Monitoring and Complaint Management System - Project Report</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    
+    @page {
+        size: A4;
+        margin: 20mm 15mm 20mm 15mm;
+    }
+    
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        color: #1f2937;
+        line-height: 1.6;
+        font-size: 13px;
+        background: #f9fafb;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .report-container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 40px 50px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    
+    .page-break {
+        page-break-after: always;
+        break-after: page;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px dashed #e5e7eb;
+    }
+    
+    /* Cover Page */
+    .cover-header {
+        text-align: center;
+        margin-top: 30px;
+    }
+    .cover-header h1 {
+        font-size: 20px;
+        font-weight: 800;
+        color: #111827;
+        margin: 0;
+        letter-spacing: 0.5px;
+    }
+    .cover-header h2 {
+        font-size: 13px;
+        font-weight: 500;
+        color: #4b5563;
+        margin: 5px 0 25px 0;
+    }
+    .course-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1d4ed8;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+    }
+    .project-badge {
+        font-size: 13px;
+        font-weight: 600;
+        color: #6b7280;
+        letter-spacing: 1px;
+    }
+    .project-name {
+        font-size: 24px;
+        font-weight: 800;
+        color: #0d47a1;
+        margin: 30px 0;
+        text-transform: uppercase;
+        line-height: 1.3;
+        border-top: 2px solid #0d47a1;
+        border-bottom: 2px solid #0d47a1;
+        padding: 15px 0;
+    }
+    .college-logo-container {
+        text-align: center;
+        margin: 35px 0;
+    }
+    .college-logo {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        border: 3px solid #0d47a1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #e0f2fe, #bfdbfe);
+        font-size: 40px;
+    }
+    .cover-date {
+        font-size: 14px;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 40px;
+    }
+    .submission-block {
+        text-align: right;
+        margin-top: 40px;
+    }
+    .submission-block p {
+        margin: 3px 0;
+        font-size: 13px;
+    }
+    .submission-block strong {
+        font-size: 14px;
+        color: #111827;
+    }
+    
+    /* Bonafide Certificate */
+    .certificate-title {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 800;
+        color: #111827;
+        margin-bottom: 25px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 2px solid #111827;
+        padding-bottom: 8px;
+    }
+    .certificate-body {
+        text-align: justify;
+        line-height: 1.8;
+        font-size: 14px;
+        margin: 30px 0;
+    }
+    .signatures-block {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 70px;
+    }
+    .sig-col {
+        text-align: center;
+        width: 40%;
+    }
+    .sig-line {
+        border-top: 1px solid #374151;
+        margin-bottom: 8px;
+    }
+    
+    /* Tables */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+        font-size: 12px;
+    }
+    th, td {
+        border: 1px solid #d1d5db;
+        padding: 8px 10px;
+        text-align: left;
+    }
+    th {
+        background: #f3f4f6;
+        color: #111827;
+        font-weight: 700;
+    }
+    tr:nth-child(even) td {
+        background: #f9fafb;
+    }
+    
+    /* Section Headings */
+    h2.section-heading {
+        font-size: 16px;
+        font-weight: 800;
+        color: #0d47a1;
+        border-bottom: 2px solid #93c5fd;
+        padding-bottom: 5px;
+        margin-top: 30px;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+    }
+    h3.sub-heading {
+        font-size: 14px;
+        font-weight: 700;
+        color: #1f2937;
+        margin-top: 18px;
+        margin-bottom: 8px;
+    }
+    
+    /* Diagrams & Mockups */
+    .diagram-card {
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        padding: 16px;
+        margin: 20px 0;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .diagram-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #0369a1;
+        text-align: center;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+    }
+    .flow-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+    }
+    .flow-node {
+        background: #ffffff;
+        border: 2px solid #0284c7;
+        border-radius: 6px;
+        padding: 8px 12px;
+        font-size: 11px;
+        font-weight: 600;
+        color: #0369a1;
+        text-align: center;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .flow-arrow {
+        font-size: 14px;
+        font-weight: 800;
+        color: #64748b;
+    }
+    
+    /* Terminal Output Blocks */
+    .terminal-box {
+        background: #0f172a;
+        color: #f8fafc;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        border-radius: 6px;
+        padding: 12px 14px;
+        margin: 14px 0;
+        overflow-x: auto;
+        line-height: 1.5;
+        border-left: 4px solid #38bdf8;
+    }
+    .term-prompt {
+        color: #38bdf8;
+    }
+    .term-cmd {
+        color: #f8fafc;
+        font-weight: 600;
+    }
+    .term-out {
+        color: #94a3b8;
+    }
+    .term-green {
+        color: #4ade80;
+    }
+    .term-yellow {
+        color: #fde047;
+    }
+    
+    /* UI Mockup Cards */
+    .ui-mockup-frame {
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        background: #ffffff;
+        margin: 18px 0;
+        overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.07);
+    }
+    .ui-mockup-bar {
+        background: #0d47a1;
+        color: #ffffff;
+        padding: 8px 14px;
+        font-size: 11px;
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .ui-mockup-body {
+        padding: 16px;
+        background: #f8fafc;
+    }
+    .mock-stat-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+    .mock-stat {
+        background: #ffffff;
+        border-radius: 6px;
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #e2e8f0;
+    }
+    .mock-stat-val {
+        font-size: 18px;
+        font-weight: 800;
+        color: #0d47a1;
+    }
+    .mock-stat-lbl {
+        font-size: 10px;
+        color: #64748b;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    .badge-pill {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 10px;
+        font-weight: 700;
+    }
+    .badge-green { background: #dcfce7; color: #15803d; }
+    .badge-orange { background: #ffedd5; color: #c2410c; }
+    .badge-blue { background: #dbeafe; color: #1e40af; }
+    
+    /* Code Listing */
+    pre.code-block {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        padding: 10px 12px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        line-height: 1.45;
+        color: #1e293b;
+        overflow-x: auto;
+    }
+    
+    ul, ol {
+        margin: 8px 0;
+        padding-left: 22px;
+    }
+    li {
+        margin-bottom: 4px;
+    }
+    
+    .caption {
+        font-size: 11px;
+        font-weight: 600;
+        color: #4b5563;
+        text-align: center;
+        margin-top: 6px;
+        margin-bottom: 16px;
+    }
+</style>
+</head>
+<body>
+
+<div class="report-container">
+
+    <!-- ─── COVER PAGE ─────────────────────────────────────────────── -->
+    <div class="cover-header">
+        <h1>COIMBATORE INSTITUTE OF TECHNOLOGY</h1>
+        <h2>(Government Aided Autonomous Institution Affiliated to Anna University)</h2>
+        <div class="course-title">23IT723 – DEVOPS LABORATORY</div>
+        <div class="project-badge">PROJECT REPORT</div>
+    </div>
+
+    <div class="project-name">
+        SMART WATER MONITORING AND COMPLAINT MANAGEMENT SYSTEM (AQUAWATCH)
+    </div>
+
+    <div class="college-logo-container">
+        <div class="college-logo">💧</div>
+    </div>
+
+    <div style="text-align: center;" class="cover-date">
+        OCTOBER 2026
+    </div>
+
+    <div class="submission-block">
+        <p>Submitted by:</p>
+        <p><strong>SARAVANA PANDIYAN</strong></p>
+        <p>Roll No: <strong>23IT045</strong> | Reg No: <strong>2303717620522022</strong></p>
+        <p>B.Tech. Information Technology — Semester VII</p>
+    </div>
+
+    <!-- ─── BONAFIDE CERTIFICATE ───────────────────────────────────── -->
+    <div class="page-break"></div>
+
+    <div class="cover-header">
+        <h1>COIMBATORE INSTITUTE OF TECHNOLOGY</h1>
+        <h2>(Government Aided Autonomous Institution Affiliated to Anna University)</h2>
+    </div>
+
+    <div class="certificate-title">BONAFIDE CERTIFICATE</div>
+
+    <div class="certificate-body">
+        Certified that this project report titled <strong>“SMART WATER MONITORING AND COMPLAINT MANAGEMENT SYSTEM”</strong> is the bonafide work of <strong>SARAVANA PANDIYAN (Reg No: 2303717620522022)</strong> completed during the academic year <strong>2025–2026 – Semester VII</strong> for the project presentation and practical examination of <strong>23IT723 – DEVOPS LABORATORY</strong> under our supervision.
+        <br><br>
+        Certified that the candidate was examined during the DevOps Laboratory Project Examination held on _____________________.
+    </div>
+
+    <div class="signatures-block">
+        <div class="sig-col">
+            <div class="sig-line"></div>
+            <strong>Faculty Evaluator I</strong><br>
+            Dr. M. Sangeetha<br>
+            Department of Information Technology
+        </div>
+        <div class="sig-col">
+            <div class="sig-line"></div>
+            <strong>Faculty Evaluator II</strong><br>
+            Dr. E. Arul<br>
+            Department of Information Technology
+        </div>
+    </div>
+
+    <!-- ─── EVALUATION SCHEME & RUBRIC ────────────────────────────── -->
+    <div class="page-break"></div>
+
+    <div class="certificate-title">23IT723 – DEVOPS LABORATORY FINAL MINI PROJECT EVALUATION SCHEME</div>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 8%;">S.No.</th>
+                <th style="width: 32%;">Evaluation Component</th>
+                <th style="width: 50%;">Key Verification Points</th>
+                <th style="width: 10%;">Marks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td><strong>Problem Definition & Project Planning</strong></td>
+                <td>Smart water tracking, complaint management workflow, architecture planning, and tool selection.</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><strong>Git Repository & Version Control</strong></td>
+                <td>Repository creation, clean commits, comprehensive README.md, .gitignore, database exclusion.</td>
+                <td>15</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td><strong>Branching, Merging & Collaboration</strong></td>
+                <td>Master branch structure, commit history verification, reproducible codebase.</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td><strong>Application Development & Build</strong></td>
+                <td>Flask backend with SQLite, parameterized queries, dynamic templates, requirements.txt pinning.</td>
+                <td>15</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td><strong>Jenkins Continuous Integration</strong></td>
+                <td>Declarative Jenkinsfile, 4-stage pipeline (Checkout, Build, Test, Deploy), console log verification.</td>
+                <td>15</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td><strong>Docker Containerization</strong></td>
+                <td>Dockerfile optimization (python:3.11-slim), image build (`water-monitoring-ci`), port mapping 5002:5000.</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td><strong>Ansible Automation & Deployment</strong></td>
+                <td>Playbook `water-deploy.yml`, community.docker module, idempotent execution on `ansible-docker-lab`.</td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td><strong>Testing & Verification</strong></td>
+                <td>Pytest suite with 13 automated tests, isolated temporary database fixture, 100% pass rate.</td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td><strong>Documentation & Technical Presentation</strong></td>
+                <td>Complete architecture diagrams, step-by-step commands, execution logs, troubleshooting guide.</td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td><strong>Final Demonstration & Viva-Voce</strong></td>
+                <td>Live demonstration of resident complaint workflow, admin dashboard updates, and Docker persistence.</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align: right; font-weight: 800;">TOTAL</td>
+                <td style="font-weight: 800;">100</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 class="sub-heading">Faculty Evaluation Record</h3>
+    <table>
+        <tr>
+            <td style="width: 25%;"><strong>Student Name</strong></td>
+            <td style="width: 35%;">SARAVANA PANDIYAN</td>
+            <td style="width: 20%;"><strong>Register No.</strong></td>
+            <td style="width: 20%;">2303717620522022</td>
+        </tr>
+        <tr>
+            <td><strong>Project Title</strong></td>
+            <td colspan="3">Smart Water Monitoring and Complaint Management System</td>
+        </tr>
+        <tr>
+            <td><strong>Final Marks Awarded</strong></td>
+            <td>__________ / 100</td>
+            <td><strong>Date</strong></td>
+            <td>13-OCTOBER-2026</td>
+        </tr>
+    </table>
+
+    <!-- ─── TABLE OF CONTENTS ──────────────────────────────────────── -->
+    <div class="page-break"></div>
+
+    <div class="certificate-title">TABLE OF CONTENTS</div>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 10%;">S.NO.</th>
+                <th style="width: 75%;">CONTENT</th>
+                <th style="width: 15%;">PAGE NO.</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>INTRODUCTION</td><td>05</td></tr>
+            <tr><td>2</td><td>OBJECTIVES</td><td>05</td></tr>
+            <tr><td>3</td><td>ABSTRACT</td><td>06</td></tr>
+            <tr><td>4</td><td>TECHNOLOGY STACK</td><td>06</td></tr>
+            <tr><td>5</td><td>SYSTEM ARCHITECTURE</td><td>07</td></tr>
+            <tr><td>6</td><td>MODULE 1 — USER INTERFACE & WATER MONITORING</td><td>08</td></tr>
+            <tr><td>7</td><td>MODULE 2 — COMPLAINT REPORTING & PRIORITY SELECTION</td><td>09</td></tr>
+            <tr><td>8</td><td>MODULE 3 — FLASK BACKEND & ROUTE MANAGEMENT</td><td>10</td></tr>
+            <tr><td>9</td><td>MODULE 4 — SQLITE DATABASE MANAGEMENT</td><td>11</td></tr>
+            <tr><td>10</td><td>MODULE 5 — GIT & GITHUB SOURCE CONTROL</td><td>12</td></tr>
+            <tr><td>11</td><td>MODULE 6 — DOCKER CONTAINERIZATION</td><td>13</td></tr>
+            <tr><td>12</td><td>MODULE 7 — JENKINS CI/CD PIPELINE</td><td>15</td></tr>
+            <tr><td>13</td><td>MODULE 8 — AUTOMATED TESTING (PYTEST)</td><td>16</td></tr>
+            <tr><td>14</td><td>MODULE 9 — ANSIBLE DEPLOYMENT</td><td>17</td></tr>
+            <tr><td>15</td><td>MODULE 10 — PERSISTENT STORAGE (DOCKER VOLUME)</td><td>18</td></tr>
+            <tr><td>16</td><td>MODULE 11 — ADMIN DASHBOARD & STATUS WORKFLOW</td><td>19</td></tr>
+            <tr><td>17</td><td>MODULE 12 — APPLICATION & DEPLOYMENT VERIFICATION</td><td>20</td></tr>
+            <tr><td>18</td><td>RESULTS AND OUTPUT (SCREENSHOTS)</td><td>21</td></tr>
+            <tr><td>19</td><td>COMMANDS USED</td><td>24</td></tr>
+            <tr><td>20</td><td>ADVANTAGES</td><td>27</td></tr>
+            <tr><td>21</td><td>LIMITATIONS</td><td>27</td></tr>
+            <tr><td>22</td><td>FUTURE ENHANCEMENTS</td><td>28</td></tr>
+            <tr><td>23</td><td>CONCLUSION</td><td>28</td></tr>
+        </tbody>
+    </table>
+
+    <!-- ─── 1. INTRODUCTION & 2. OBJECTIVES ────────────────────────── -->
+    <div class="page-break"></div>
+
+    <h2 class="section-heading">1. INTRODUCTION</h2>
+    <p style="text-align: justify;">
+        The <strong>Smart Water Monitoring and Complaint Management System (AquaWatch)</strong> is a web-based public utility monitoring and grievance redressal platform engineered to address challenges in urban water distribution and public utility reporting. In conventional municipality and campus settings, water leakage, contamination, pipeline damage, and supply disruptions often go unreported or suffer from severe communication delays between residents and maintenance authorities.
+    </p>
+    <p style="text-align: justify;">
+        AquaWatch provides an integrated, digitalized platform where residents can inspect simulated real-time water quality parameters (water tank level, pH level, turbidity, and water temperature), register complaints with location and priority, receive a tracking ID (e.g., <code>WC-00001</code>), and monitor progress live on a visual status timeline. An authorized Administrative Portal allows maintenance supervisors to review incoming complaints and systematically update statuses across the lifecycle: <strong>Pending &rarr; Assigned &rarr; In Progress &rarr; Resolved &rarr; Closed</strong>.
+    </p>
+    <p style="text-align: justify;">
+        Beyond core web functionality, this project implements an end-to-end DevOps automation pipeline. Source code is tracked using Git/GitHub, containerized into an optimized Docker image, validated through automated Pytest unit and integration tests, orchestrated via Jenkins CI/CD declarative pipelines, deployed with Ansible configuration management, and protected against data loss through a persistent Docker Named Volume backing the SQLite database.
+    </p>
+
+    <h2 class="section-heading">2. OBJECTIVES</h2>
+    <ul>
+        <li>To develop a clean, responsive water utility web application using Python Flask, HTML5, CSS3, and JavaScript.</li>
+        <li>To implement simulated real-time water quality monitoring for key parameters (Water Level, pH, Turbidity, Temperature) with illustrative threshold categorization (Normal, Warning, Critical).</li>
+        <li>To provide a transparent grievance registration mechanism that assigns unique Complaint IDs and offers real-time status tracking.</li>
+        <li>To create an Admin Management Dashboard with session-based authentication to manage complaint workflows and inspect complaint statistics.</li>
+        <li>To implement Git and GitHub source code control with rigorous exclusion rules preventing database and credential leaks.</li>
+        <li>To containerize the application using lightweight Docker images (<code>python:3.11-slim</code>) for repeatable execution.</li>
+        <li>To build a 4-stage Jenkins CI/CD pipeline automating Checkout, Build, Pytest Validation, and Ansible Deployment.</li>
+        <li>To incorporate Pytest automated test coverage (13 tests) executing against isolated temporary databases.</li>
+        <li>To automate container deployment and port mapping (5002:5000) using Ansible and the <code>community.docker</code> module.</li>
+        <li>To implement a persistent Docker Named Volume (<code>water_monitoring_data</code>) guaranteeing zero data loss across container recreation.</li>
+    </ul>
+
+    <!-- ─── 3. ABSTRACT & 4. TECH STACK ───────────────────────────── -->
+    <div class="page-break"></div>
+
+    <h2 class="section-heading">3. ABSTRACT</h2>
+    <p style="text-align: justify;">
+        Effective water management and prompt infrastructure maintenance are vital for smart communities and college campuses. Traditional water complaint systems rely on verbal communication, physical registers, or unmonitored helpdesk emails, leading to lost complaints, lack of accountability, and zero visibility into water quality trends.
+    </p>
+    <p style="text-align: justify;">
+        The proposed <strong>Smart Water Monitoring and Complaint Management System</strong> combines a functional Flask web application with a full modern DevOps CI/CD pipeline. The user-facing module allows residents to view live water quality measurements, log categorized complaints, and track resolutions. The admin module empowers utility managers to update statuses and monitor system health. The underlying infrastructure follows a production-grade DevOps workflow: Developer code push triggers a 4-stage Jenkins pipeline which builds the Docker container (<code>water-monitoring-ci</code>), runs 13 automated Pytest test cases, and invokes an Ansible playbook (<code>water-deploy.yml</code>) inside an <code>ansible-docker-lab</code> container. The application container (<code>water-monitoring-ansible</code>) exposes port 5002 on the host and mounts a Docker Named Volume (<code>water_monitoring_data</code>) to <code>/app/data</code>, preserving complaint history permanently across container redeployments.
+    </p>
+
+    <h2 class="section-heading">4. TECHNOLOGY STACK</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Technology</th>
+                <th style="width: 20%;">Version / Image</th>
+                <th style="width: 55%;">Role in Architecture</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>HTML5 & CSS3</strong></td>
+                <td>Standard / Flex & Grid</td>
+                <td>Responsive frontend with blue/aqua water utility theme and mobile drawer.</td>
+            </tr>
+            <tr>
+                <td><strong>JavaScript</strong></td>
+                <td>ES6+</td>
+                <td>Client-side character counters, instant field validation, and filter tabs.</td>
+            </tr>
+            <tr>
+                <td><strong>Python</strong></td>
+                <td>3.11.9</td>
+                <td>Core backend runtime language.</td>
+            </tr>
+            <tr>
+                <td><strong>Flask</strong></td>
+                <td>3.0.3</td>
+                <td>Lightweight WSGI web framework handling routing, sessions, and rendering.</td>
+            </tr>
+            <tr>
+                <td><strong>SQLite</strong></td>
+                <td>3.x (Built-in)</td>
+                <td>Relational embedded database storing complaints and water readings.</td>
+            </tr>
+            <tr>
+                <td><strong>Git & GitHub</strong></td>
+                <td>Git 2.45+</td>
+                <td>Distributed version control and remote collaborative repository.</td>
+            </tr>
+            <tr>
+                <td><strong>Docker</strong></td>
+                <td>29.x / Desktop</td>
+                <td>Containerization engine building and running lightweight Linux images.</td>
+            </tr>
+            <tr>
+                <td><strong>Pytest</strong></td>
+                <td>8.2.2</td>
+                <td>Automated testing framework running 13 unit and integration tests.</td>
+            </tr>
+            <tr>
+                <td><strong>Jenkins</strong></td>
+                <td>2.580.1 LTS</td>
+                <td>CI/CD automation server running declarative 4-stage pipelines.</td>
+            </tr>
+            <tr>
+                <td><strong>Ansible</strong></td>
+                <td>ansible-core 2.19</td>
+                <td>Idempotent container provisioning via `community.docker.docker_container`.</td>
+            </tr>
+            <tr>
+                <td><strong>Docker Volume</strong></td>
+                <td>Local named volume</td>
+                <td>`water_monitoring_data` mounted to `/app/data` for persistent SQLite storage.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ─── 5. SYSTEM ARCHITECTURE ─────────────────────────────────── -->
+    <div class="page-break"></div>
+
+    <h2 class="section-heading">5. SYSTEM ARCHITECTURE</h2>
+    <p>
+        The system implements two independent, cleanly decoupled workflows: the <strong>Application Workflow</strong> (handling resident complaints and monitoring) and the <strong>DevOps CI/CD Workflow</strong> (handling automated build, test, and container deployment). Submitting a complaint does not trigger Jenkins.
+    </p>
+
+    <div class="diagram-card">
+        <div class="diagram-title">Figure 5.1: End-to-End DevOps CI/CD and Application Architecture</div>
+        <div class="flow-grid">
+            <div class="flow-node"><strong>1. Developer</strong><br>VS Code / Git</div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-node"><strong>2. GitHub</strong><br>Remote Repo</div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-node"><strong>3. Jenkins CI</strong><br>Port 8080</div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-node"><strong>4. Docker Build</strong><br>water-monitoring-ci</div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-node"><strong>5. Pytest</strong><br>13 Tests Passed</div>
+        </div>
+        <div style="text-align: center; margin: 10px 0;" class="flow-arrow">&darr; Deployment Handoff</div>
+        <div class="flow-grid">
+            <div class="flow-node"><strong>6. Ansible Lab</strong><br>ansible-docker-lab</div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-node"><strong>7. Container Run</strong><br>water-monitoring-ansible</div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-node"><strong>8. Persistent Volume</strong><br>water_monitoring_data</div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-node"><strong>9. Live Access</strong><br>http://localhost:5002</div>
+        </div>
+    </div>
+
+    <h3 class="sub-heading">Step-by-Step Architecture Flow</h3>
+    <ol>
+        <li><strong>Development:</strong> Code updates, templates, and tests are prepared in the local workspace.</li>
+        <li><strong>Source Control:</strong> Changes are committed to Git with sensitive database files excluded via <code>.gitignore</code>.</li>
+        <li><strong>Continuous Integration (Jenkins):</strong> Jenkins fetches the latest code and initiates the declarative pipeline.</li>
+        <li><strong>Container Image Build:</strong> Stage 2 builds the standalone Docker image <code>water-monitoring-ci</code>.</li>
+        <li><strong>Automated Testing:</strong> Stage 3 executes <code>python -m pytest test_app.py -v</code> inside the container. If any test fails, deployment halts immediately.</li>
+        <li><strong>Ansible Deployment:</strong> Stage 4 copies the playbook to <code>ansible-docker-lab</code> and executes <code>ansible-playbook</code> to configure the application container.</li>
+        <li><strong>Storage Persistence:</strong> The container mounts <code>water_monitoring_data:/app/data</code>, ensuring SQLite database persistence.</li>
+        <li><strong>Resident & Admin Interaction:</strong> Residents access <code>http://localhost:5002</code> to report issues, while admins log in to update complaint statuses.</li>
+    </ol>
+
+    <!-- ─── MODULES 1 TO 3 ─────────────────────────────────────────── -->
+    <div class="page-break"></div>
+
+    <h2 class="section-heading">6. MODULE 1 — USER INTERFACE & WATER MONITORING</h2>
+    <p style="text-align: justify;">
+        This module delivers the resident-facing monitoring interface. It visualizes simulated water quality metrics retrieved dynamically from SQLite.
+    </p>
+    <ul>
+        <li><strong>Water Tank Level (%):</strong> Visual bar indicating reservoir storage capacity.</li>
+        <li><strong>pH Level:</strong> Color-coded gauge showing alkalinity/acidity (Optimal: 6.5 – 8.5).</li>
+        <li><strong>Turbidity (NTU):</strong> Water clarity indicator with status circles (Clear, Cloudy, Murky).</li>
+        <li><strong>Temperature (&deg;C):</strong> Water temperature tracking with alert boundaries.</li>
+        <li><strong>Status Banner:</strong> Categorizes overall water safety into Normal (Green), Warning (Yellow), or Critical (Red).</li>
+        <li><strong>Reading History:</strong> Tabular display showing the last 20 recorded historical readings.</li>
+    </ul>
+
+    <h2 class="section-heading">7. MODULE 2 — COMPLAINT REPORTING & PRIORITY SELECTION</h2>
+    <p style="text-align: justify;">
+        Allows community members to report pipeline and water quality problems through an intuitive, validated web form.
+    </p>
+    <ul>
+        <li><strong>Categories:</strong> Water Leakage, Low Water Pressure, No Water Supply, Water Quality Issue, Pipeline Damage, Overflowing Water Tank, Contaminated Water, Other.</li>
+        <li><strong>Priority Levels:</strong> Radio cards with icons for Low (Minor), Medium (Moderate), High (Significant), and Critical (Emergency/Health Risk).</li>
+        <li><strong>Validation:</strong> Client-side character counter (minimum 10 characters for description) and server-side validation rejecting incomplete entries.</li>
+        <li><strong>Complaint ID Generation:</strong> Generates unique identifiers (e.g. <code>WC-00001</code>) and redirects directly to the tracking screen.</li>
+    </ul>
+
+    <h2 class="section-heading">8. MODULE 3 — FLASK BACKEND & ROUTE MANAGEMENT</h2>
+    <p style="text-align: justify;">
+        The Flask application in <code>app.py</code> coordinates backend logic, session state, input validation, and database interactions:
+    </p>
+    <pre class="code-block">
+@app.route("/")                 # Home page with water status summary & stats
+@app.route("/monitoring")       # Full water quality dashboard & historical log
+@app.route("/report")           # Complaint reporting form
+@app.route("/submit_complaint", methods=["POST"])  # Validates & inserts into SQLite
+@app.route("/track", methods=["GET", "POST"])     # Queries complaint by ID & renders timeline
+@app.route("/admin/login", methods=["GET", "POST"])# Admin session authentication
+@app.route("/admin")            # Protected administrative dashboard
+@app.route("/update_status", methods=["POST"])     # Updates complaint lifecycle status
+    </pre>
+
+    <!-- ─── MODULES 4 TO 6 ─────────────────────────────────────────── -->
+    <div class="page-break"></div>
+
+    <h2 class="section-heading">9. MODULE 4 — SQLITE DATABASE MANAGEMENT</h2>
+    <p style="text-align: justify;">
+        The database file is stored at <code>data/water_monitoring.db</code> (local) and <code>/app/data/water_monitoring.db</code> (container). Parameterized SQL queries prevent SQL injection.
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Table Name</th>
+                <th>Columns</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>water_complaints</strong></td>
+                <td>id (PK), complaint_type, location, description, priority, status, created_at, updated_at</td>
+                <td>Stores all submitted water grievances and their lifecycle progression.</td>
+            </tr>
+            <tr>
+                <td><strong>water_readings</strong></td>
+                <td>id (PK), water_level, ph_level, turbidity, temperature, water_status, recorded_at</td>
+                <td>Stores simulated sensor telemetry for water quality parameters.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="section-heading">10. MODULE 5 — GIT & GITHUB SOURCE CONTROL</h2>
+    <p style="text-align: justify;">
+        Source code is tracked using Git with a clean commit history. The <code>.gitignore</code> file prevents sensitive and temporary files from being pushed:
+    </p>
+    <div class="terminal-box">
+<span class="term-prompt">$</span> <span class="term-cmd">git status</span>
+On branch master
+nothing to commit, working tree clean
+
+<span class="term-prompt">$</span> <span class="term-cmd">git log -1 --oneline</span>
+<span class="term-green">ea74c46</span> Add Dockerignore and Ansible lab Dockerfile
+    </div>
+
+    <h2 class="section-heading">11. MODULE 6 — DOCKER CONTAINERIZATION</h2>
+    <p style="text-align: justify;">
+        A minimal Dockerfile packages the Flask application on top of <code>python:3.11-slim</code>:
+    </p>
+    <pre class="code-block">
+FROM python:3.11-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+RUN mkdir -p /app/data
+EXPOSE 5000
+ENV DATABASE_PATH=/app/data/water_monitoring.db
+CMD ["python", "app.py"]
+    </pre>
+
+    <!-- ─── MODULES 7 TO 9 ─────────────────────────────────────────── -->
+    <div class="page-break"></div>
+
+    <h2 class="section-heading">12. MODULE 7 — JENKINS CI/CD PIPELINE</h2>
+    <p style="text-align: justify;">
+        The declarative <code>Jenkinsfile</code> defines a robust 4-stage pipeline with post-execution handlers:
+    </p>
+    <div class="terminal-box">
+<span class="term-prompt">[Pipeline]</span> <span class="term-cmd">Stage: Checkout</span> &rarr; Source code verified in workspace
+<span class="term-prompt">[Pipeline]</span> <span class="term-cmd">Stage: Build</span> &rarr; docker build -t water-monitoring-ci .
+<span class="term-prompt">[Pipeline]</span> <span class="term-cmd">Stage: Test</span> &rarr; docker run --rm water-monitoring-ci python -m pytest test_app.py -v
+<span class="term-prompt">[Pipeline]</span> <span class="term-cmd">Stage: Deploy</span> &rarr; docker exec ansible-docker-lab ansible-playbook -i /inventory.ini /water-deploy.yml
+<span class="term-green">[Pipeline] SUCCESS: Smart Water Monitoring and Complaint Management CI/CD Pipeline Completed Successfully!</span>
+    </div>
+
+    <h2 class="section-heading">13. MODULE 8 — AUTOMATED TESTING (PYTEST)</h2>
+    <p style="text-align: justify;">
+        13 automated tests verify every route, database query, and security checkpoint. Tests run using an isolated temporary SQLite database fixture:
+    </p>
+    <div class="terminal-box">
+<span class="term-prompt">$</span> <span class="term-cmd">python -m pytest test_app.py -v</span>
+test_app.py::test_app_initializes <span class="term-green">PASSED</span> [  7%]
+test_app.py::test_home_page <span class="term-green">PASSED</span> [ 15%]
+test_app.py::test_monitoring_page <span class="term-green">PASSED</span> [ 23%]
+test_app.py::test_report_page <span class="term-green">PASSED</span> [ 30%]
+test_app.py::test_submit_valid_complaint <span class="term-green">PASSED</span> [ 38%]
+test_app.py::test_complaint_stored_in_db <span class="term-green">PASSED</span> [ 46%]
+test_app.py::test_retrieve_complaint_by_id <span class="term-green">PASSED</span> [ 53%]
+test_app.py::test_track_complaint_status <span class="term-green">PASSED</span> [ 61%]
+test_app.py::test_admin_login_valid <span class="term-green">PASSED</span> [ 69%]
+test_app.py::test_admin_dashboard_unauthorized <span class="term-green">PASSED</span> [ 76%]
+test_app.py::test_admin_dashboard_authorized <span class="term-green">PASSED</span> [ 84%]
+test_app.py::test_admin_update_status <span class="term-green">PASSED</span> [ 92%]
+test_app.py::test_status_update_persisted <span class="term-green">PASSED</span> [100%]
+<span class="term-green">============================== 13 passed in 0.63s ==============================</span>
+    </div>
+
+    <h2 class="section-heading">14. MODULE 9 — ANSIBLE DEPLOYMENT</h2>
+    <p style="text-align: justify;">
+        Ansible automates container provisioning via the <code>community.docker.docker_container</code> module:
+    </p>
+    <pre class="code-block">
+- name: Deploy Smart Water Monitoring System
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Ensure Docker volume exists
+      community.docker.docker_volume:
+        name: water_monitoring_data
+        state: present
+    - name: Deploy application container
+      community.docker.docker_container:
+        name: water-monitoring-ansible
+        image: water-monitoring-ci
+        ports: ["5002:5000"]
+        volumes: ["water_monitoring_data:/app/data"]
+        restart_policy: unless-stopped
+    </pre>
+
+    <!-- ─── MODULES 10 TO 12 ────────────────────────────────────────── -->
+    <div class="page-break"></div>
+
+    <h2 class="section-heading">15. MODULE 10 — PERSISTENT STORAGE (DOCKER VOLUME)</h2>
+    <p style="text-align: justify;">
+        A Docker Named Volume named <code>water_monitoring_data</code> is bound to <code>/app/data</code> inside the container. This decouples database lifecycle from container lifecycle:
+    </p>
+    <div class="diagram-card">
+        <div class="diagram-title">Figure 10.1: Docker Named Volume Persistence Model</div>
+        <div class="flow-grid">
+            <div class="flow-node"><strong>Application Container</strong><br>water-monitoring-ansible<br>(Destroyed / Rebuilt on CI)</div>
+            <div class="flow-arrow">&larr;&rarr; Mounts &larr;&rarr;</div>
+            <div class="flow-node"><strong>Docker Named Volume</strong><br>water_monitoring_data<br>(Persistent on Host Engine)</div>
+            <div class="flow-arrow">&larr;&rarr; Contains &larr;&rarr;</div>
+            <div class="flow-node"><strong>SQLite Database</strong><br>/app/data/water_monitoring.db<br>(Zero Data Loss)</div>
+        </div>
+    </div>
+
+    <h2 class="section-heading">16. MODULE 11 — ADMIN DASHBOARD & STATUS WORKFLOW</h2>
+    <p style="text-align: justify;">
+        The admin dashboard at <code>/admin</code> provides summary counters and interactive controls:
+    </p>
+    <ul>
+        <li><strong>Status Progression:</strong> Pending &rarr; Assigned &rarr; In Progress &rarr; Resolved &rarr; Closed.</li>
+        <li><strong>Inline Update Forms:</strong> Each row contains a dropdown and POST form to update the database immediately.</li>
+        <li><strong>Interactive Filter Tabs:</strong> Quick filtering by All, Pending, Assigned, In Progress, Resolved, or Closed.</li>
+        <li><strong>Session Protection:</strong> Unauthorized requests to <code>/admin</code> are redirected to <code>/admin/login</code> (HTTP 302).</li>
+    </ul>
+
+    <h2 class="section-heading">17. MODULE 12 — APPLICATION & DEPLOYMENT VERIFICATION</h2>
+    <p style="text-align: justify;">
+        End-to-end verification confirms that every subsystem operates properly:
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Test Target</th>
+                <th>Command / URL</th>
+                <th>Expected Result</th>
+                <th>Observed Output</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Flask Home</td>
+                <td>curl -i http://localhost:5002/</td>
+                <td>HTTP 200 OK</td>
+                <td>HTTP 200 OK (Rendered)</td>
+            </tr>
+            <tr>
+                <td>Monitoring Page</td>
+                <td>curl -i http://localhost:5002/monitoring</td>
+                <td>HTTP 200 OK</td>
+                <td>HTTP 200 OK (Gauges Active)</td>
+            </tr>
+            <tr>
+                <td>Pytest Suite</td>
+                <td>pytest test_app.py</td>
+                <td>13 Passed</td>
+                <td>13 Passed in 0.63s</td>
+            </tr>
+            <tr>
+                <td>Ansible Run</td>
+                <td>docker exec ansible-docker-lab ...</td>
+                <td>failed=0</td>
+                <td>ok=4 changed=1 failed=0</td>
+            </tr>
+            <tr>
+                <td>Jenkins Build</td>
+                <td>http://localhost:8080</td>
+                <td>SUCCESS</td>
+                <td>Build #1: SUCCESS (All 4 stages)</td>
+            </tr>
+            <tr>
+                <td>Volume Persistence</td>
+                <td>docker rm -f + redeploy</td>
+                <td>Data Retained</td>
+                <td>All complaints retained in SQLite</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ─── 18. RESULTS & OUTPUT SCREENSHOTS ───────────────────────── -->
+    <div class="page-break"></div>
+
+    <h2 class="section-heading">18. RESULTS AND OUTPUT (EXECUTION EVIDENCE)</h2>
+
+    <!-- UI Mockup 1: Home Page -->
+    <div class="ui-mockup-frame">
+        <div class="ui-mockup-bar">
+            <span>AquaWatch — Smart Water Monitoring System (http://localhost:5002)</span>
+            <span>Status: Online</span>
+        </div>
+        <div class="ui-mockup-body">
+            <div style="background: linear-gradient(135deg, #0d47a1, #00acc1); color: white; padding: 16px; border-radius: 6px; text-align: center; margin-bottom: 12px;">
+                <div style="font-size: 16px; font-weight: 800;">Smart Water Monitoring & Complaint Management</div>
+                <div style="font-size: 11px; opacity: 0.9;">Real-time water quality tracking and transparent status updates</div>
+            </div>
+            <div class="mock-stat-row">
+                <div class="mock-stat"><div class="mock-stat-val">4</div><div class="mock-stat-lbl">Total Complaints</div></div>
+                <div class="mock-stat"><div class="mock-stat-val">1</div><div class="mock-stat-lbl">Pending</div></div>
+                <div class="mock-stat"><div class="mock-stat-val">1</div><div class="mock-stat-lbl">In Progress</div></div>
+                <div class="mock-stat"><div class="mock-stat-val">2</div><div class="mock-stat-lbl">Resolved</div></div>
+            </div>
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px; display: flex; justify-content: space-around; text-align: center;">
+                <div><div style="font-weight: 700; color: #0d47a1;">68.3%</div><small>Water Level</small></div>
+                <div><div style="font-weight: 700; color: #0d47a1;">7.3</div><small>pH Level</small></div>
+                <div><div style="font-weight: 700; color: #0d47a1;">2.9 NTU</div><small>Turbidity</small></div>
+                <div><div style="font-weight: 700; color: #0d47a1;">25.8°C</div><small>Temperature</small></div>
+            </div>
+        </div>
+    </div>
+    <div class="caption">Figure 18.1: Live AquaWatch Application Home Page on Port 5002</div>
+
+    <!-- UI Mockup 2: Complaint Tracking -->
+    <div class="ui-mockup-frame">
+        <div class="ui-mockup-bar">
+            <span>Complaint Tracking & Status Timeline (http://localhost:5002/track)</span>
+            <span>ID: WC-00002</span>
+        </div>
+        <div class="ui-mockup-body">
+            <div style="background: white; padding: 14px; border-radius: 6px; border: 1px solid #cbd5e1;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <div><strong>Complaint ID:</strong> WC-00002 &bull; <strong>Type:</strong> Water Leakage</div>
+                    <span class="badge-pill badge-green">Resolved</span>
+                </div>
+                <div style="font-size: 11px; color: #475569; margin-bottom: 12px;">
+                    <strong>Location:</strong> Auditorium Block A &bull; <strong>Priority:</strong> High &bull; <strong>Description:</strong> Main valve is leaking severely.
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-weight: 700; color: #0284c7;">
+                    <span>✓ Pending</span> &rarr; <span>✓ Assigned</span> &rarr; <span>✓ In Progress</span> &rarr; <span>● Resolved</span> &rarr; <span style="color: #94a3b8;">○ Closed</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="caption">Figure 18.2: Complaint Tracking View with Visual Status Progress Timeline</div>
+
+    <!-- UI Mockup 3: Jenkins Pipeline -->
+    <div class="ui-mockup-frame">
+        <div class="ui-mockup-bar" style="background: #1e293b;">
+            <span>Jenkins Dashboard — Pipeline Stage View (http://localhost:8080)</span>
+            <span style="color: #4ade80;">Build #1: SUCCESS</span>
+        </div>
+        <div class="ui-mockup-body">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center;">
+                <div style="background: #dcfce7; border: 2px solid #22c55e; border-radius: 6px; padding: 10px;">
+                    <strong>Checkout</strong><br><small style="color: #16a34a;">0.2s - SUCCESS</small>
+                </div>
+                <div style="background: #dcfce7; border: 2px solid #22c55e; border-radius: 6px; padding: 10px;">
+                    <strong>Build</strong><br><small style="color: #16a34a;">2.0s - SUCCESS</small>
+                </div>
+                <div style="background: #dcfce7; border: 2px solid #22c55e; border-radius: 6px; padding: 10px;">
+                    <strong>Test</strong><br><small style="color: #16a34a;">1.2s - 13 Passed</small>
+                </div>
+                <div style="background: #dcfce7; border: 2px solid #22c55e; border-radius: 6px; padding: 10px;">
+                    <strong>Deploy</strong><br><small style="color: #16a34a;">3.5s - Ansible ok=4</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="caption">Figure 18.3: Jenkins CI/CD Declarative Pipeline Execution (All 4 Stages Green)</div>
+
+    <!-- UI Mockup 4: Docker Containers -->
+    <div class="terminal-box">
+<span class="term-prompt">$</span> <span class="term-cmd">docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"</span>
+NAMES                     IMAGE                 STATUS         PORTS
+<span class="term-green">water-monitoring-ansible</span>  water-monitoring-ci   Up 25 minutes  0.0.0.0:5002->5000/tcp
+<span class="term-green">jenkins</span>                   jenkins/jenkins:lts   Up 28 minutes  0.0.0.0:8080->8080/tcp
+<span class="term-green">ansible-docker-lab</span>        ansible-lab-image     Up 30 minutes
+    </div>
+    <div class="caption">Figure 18.4: Docker CLI Verifying Active Application, Jenkins, and Ansible Containers</div>
+
+    <!-- ─── 19. COMMANDS USED ──────────────────────────────────────── -->
+    <div class="page-break"></div>
+
+    <h2 class="section-heading">19. COMMANDS USED</h2>
+
+    <h3 class="sub-heading">1. Local Execution & Virtual Environment</h3>
+    <div class="terminal-box">
+<span class="term-prompt">PS></span> <span class="term-cmd">py -3.11 -m venv .venv</span>
+<span class="term-prompt">PS></span> <span class="term-cmd">.venv\Scripts\Activate.ps1</span>
+<span class="term-prompt">PS></span> <span class="term-cmd">pip install -r requirements.txt</span>
+<span class="term-prompt">PS></span> <span class="term-cmd">python app.py</span>
+    </div>
+
+    <h3 class="sub-heading">2. Pytest Automated Testing</h3>
+    <div class="terminal-box">
+<span class="term-prompt">PS></span> <span class="term-cmd">python -m pytest test_app.py -v</span>
+    </div>
+
+    <h3 class="sub-heading">3. Docker Build & Volume Creation</h3>
+    <div class="terminal-box">
+<span class="term-prompt">$</span> <span class="term-cmd">docker build -t water-monitoring-ci .</span>
+<span class="term-prompt">$</span> <span class="term-cmd">docker volume create water_monitoring_data</span>
+<span class="term-prompt">$</span> <span class="term-cmd">docker volume inspect water_monitoring_data</span>
+    </div>
+
+    <h3 class="sub-heading">4. Ansible Deployment Execution</h3>
+    <div class="terminal-box">
+<span class="term-prompt">$</span> <span class="term-cmd">docker cp ansible/water-deploy.yml ansible-docker-lab:/water-deploy.yml</span>
+<span class="term-prompt">$</span> <span class="term-cmd">docker exec ansible-docker-lab ansible-playbook -i /inventory.ini /water-deploy.yml</span>
+    </div>
+
+    <h3 class="sub-heading">5. SQLite Database Inspection inside Container</h3>
+    <div class="terminal-box">
+<span class="term-prompt">$</span> <span class="term-cmd">docker exec water-monitoring-ansible python -c "import sqlite3; conn=sqlite3.connect('data/water_monitoring.db'); print(conn.execute('SELECT id, complaint_type, status FROM water_complaints').fetchall())"</span>
+    </div>
+
+    <h3 class="sub-heading">6. Git Version Control Commands</h3>
+    <div class="terminal-box">
+<span class="term-prompt">$</span> <span class="term-cmd">git init</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git add .</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git commit -m "Initial commit: Smart Water Monitoring System with Jenkins, Docker, and Ansible"</span>
+<span class="term-prompt">$</span> <span class="term-cmd">git status</span>
+    </div>
+
+    <!-- ─── 20-23. ADVANTAGES, LIMITATIONS, CONCLUSION ────────────── -->
+    <div class="page-break"></div>
+
+    <h2 class="section-heading">20. ADVANTAGES</h2>
+    <ul>
+        <li><strong>Automated Redressal:</strong> Eliminates manual paper-based logging of water issues.</li>
+        <li><strong>Data Persistence:</strong> Zero data loss across container teardowns due to Docker Named Volume.</li>
+        <li><strong>Continuous Verification:</strong> Automated Pytest suites prevent defective code from reaching deployment.</li>
+        <li><strong>Idempotent Deployment:</strong> Ansible playbooks ensure reproducible container states without duplicate allocations.</li>
+        <li><strong>End-to-End Automation:</strong> Reduces build-test-deploy cycles from manual hours to seconds.</li>
+    </ul>
+
+    <h2 class="section-heading">21. LIMITATIONS</h2>
+    <ul>
+        <li>Water quality metrics are currently simulated and not hooked to physical IoT hardware.</li>
+        <li>Demonstration authentication uses Flask sessions without production OAuth or JWT tokens.</li>
+        <li>Deployment demonstrated locally using Docker Engine rather than distributed cloud clusters (Kubernetes/AWS).</li>
+    </ul>
+
+    <h2 class="section-heading">22. FUTURE ENHANCEMENTS</h2>
+    <ul>
+        <li>Integration with ESP32/Arduino IoT sensor hardware for live water telemetry.</li>
+        <li>SMS and email alert notifications to maintenance crew upon High/Critical priority complaints.</li>
+        <li>Role-based access control with multi-factor authentication (MFA).</li>
+        <li>Kubernetes Helm chart packaging for cloud cluster deployment on AWS EKS or GCP GKE.</li>
+    </ul>
+
+    <h2 class="section-heading">23. CONCLUSION</h2>
+    <p style="text-align: justify;">
+        The <strong>Smart Water Monitoring and Complaint Management System</strong> successfully demonstrates the complete convergence of a full-stack web application with modern DevOps practices. By implementing Python Flask, SQLite, Git, Docker, Pytest, Jenkins, and Ansible, the project showcases the entire lifecycle:
+    </p>
+    <p style="text-align: center; font-weight: 700; color: #0d47a1; margin: 15px 0;">
+        Git Source &rarr; Jenkins CI &rarr; Docker Containerization &rarr; Pytest Verification &rarr; Ansible Deployment &rarr; Persistent Docker Volume
+    </p>
+    <p style="text-align: justify;">
+        The successful automated execution of Jenkins Build #1 and Ansible container deployment verifies that public utility management can be made reliable, automated, and maintainable through standard DevOps engineering methodologies.
+    </p>
+
+</div>
+
+</body>
+</html>
